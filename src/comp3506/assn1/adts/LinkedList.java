@@ -1,11 +1,11 @@
 package comp3506.assn1.adts;
 
-class LinkedList<T> extends TraversableQueue<T> {
+class LinkedList<T> {
 	protected LinkedNode<T> head;
 	protected LinkedNode<T> tail;
 	private int size;
 	
-	protected LinkedList() {
+	LinkedList() {
 		this.size = 0;
 		this.head = null;
 		this.tail = null;
@@ -16,6 +16,7 @@ class LinkedList<T> extends TraversableQueue<T> {
 		
 		if (this.size == 0) {
 			this.head = node;
+			this.size++;
 		} else {
 			node.addNext(this.tail);
 			this.tail = node;
@@ -30,12 +31,22 @@ class LinkedList<T> extends TraversableQueue<T> {
 			throw new IndexOutOfBoundsException();
 		} else {
 			removedObject = this.head.getNodeElement();
-			this.head = this.head.getNextNode();
-			this.size--;
+			if (this.size == 1) {
+				this.head = null;
+				this.tail = null;
+			} else {
+				this.head = this.head.getNextNode();
+				this.size--;
+			}
 		}
 		
 		return removedObject;
 		
+	}
+	
+	
+	protected int getSize() {
+		return this.size;
 	}
 	
 }

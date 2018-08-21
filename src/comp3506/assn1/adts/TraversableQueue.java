@@ -23,7 +23,7 @@ public class TraversableQueue<T> implements IterableQueue<T> {
 	
 	@Override
 	public int size() {
-		return this.queue.size();
+		return this.queue.getSize();
 	}
 	
 	@Override
@@ -32,25 +32,28 @@ public class TraversableQueue<T> implements IterableQueue<T> {
 	}
 	
 	
-	private class LinkedListIterator extends TraversableQueue<T> implements Iterator<T> {
-		private LinkedList<T>.LinkedNode currentNode;
+	private class LinkedListIterator implements Iterator<T> {
+		private LinkedNode<T> currentNode;
+		private int nodePointer;
 		
 		private LinkedListIterator() {
-			 this.currentNode =  super.queue.head;
+			this.currentNode =  queue.head;
+			this.nodePointer = 0;
 		}
 		
 		public boolean hasNext() {
-			if (this.currentNode.getNextNode() != null) {
-				return true;
-			} else {
+			if (this.nodePointer == queue.getSize()) {
 				return false;
+			} else {
+				return true;
 			}
 		}
 		
 		public T next() throws NoSuchElementException{
 			if (this.hasNext()) {
-				LinkedList<T>.LinkedNode<T> tempNode = this.currentNode;
+				LinkedNode<T> tempNode = this.currentNode;
 				this.currentNode = this.currentNode.getNextNode();
+				this.nodePointer++;
 				return tempNode.getNodeElement();
 			} else {
 				throw new NoSuchElementException();
