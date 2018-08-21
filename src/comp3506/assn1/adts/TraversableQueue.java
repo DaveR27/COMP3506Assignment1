@@ -55,9 +55,11 @@ public class TraversableQueue<T> implements IterableQueue<T> {
 				this.currentNode = this.currentNode.getNextNode();
 				this.nodePointer++;
 				return tempNode.getNodeElement();
-			} else {
+			} 
+			if (this.nodePointer > queue.getSize()) {
 				throw new NoSuchElementException();
 			}
+			return null;
 		}
 		
 	}
