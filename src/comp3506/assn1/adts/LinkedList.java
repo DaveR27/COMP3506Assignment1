@@ -16,29 +16,28 @@ class LinkedList<T> {
 		
 		if (this.size == 0) {
 			this.head = node;
+			this.tail = node;
 			this.size++;
 		} else {
-			node.addNext(this.tail);
+			this.tail.addNext(node);
 			this.tail = node;
 			this.size++;
 		}
 	}
 	
 	protected T removeHead() throws IndexOutOfBoundsException {
-		T removedObject;
-		
+		T removedObject = this.head.getNodeElement();
 		if (this.size == 0) {
 			throw new IndexOutOfBoundsException();
-		} else {
-			removedObject = this.head.getNodeElement();
-			if (this.size == 1) {
-				this.head = null;
-				this.tail = null;
-				this.size = 0;
-			} else {
-				this.head = this.head.getNextNode();
-				this.size--;
-			}
+		}
+		if (this.size == 1) {
+			this.head = null;
+			this.tail = null;
+			this.size = 0;
+		}
+		else {
+			this.head = this.head.getNextNode();
+			this.size--;
 		}
 		
 		return removedObject;
@@ -49,6 +48,7 @@ class LinkedList<T> {
 	protected int getSize() {
 		return this.size;
 	}
+	
 
 	
 }

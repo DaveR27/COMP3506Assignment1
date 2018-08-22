@@ -27,13 +27,13 @@ public class BoundedCube<T> implements Cube<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public BoundedCube(int length, int breadth, int height) throws IllegalArgumentException {
-		if (!this.checkPositiveValues(length, breadth, height)) {
+		if (!(this.checkPositiveValues(length, breadth, height))) {
 			throw new IllegalArgumentException();
 		}
 		this.length = length;
 		this.height = height;
 		this.breadth = breadth;
-		this.cube =  (TraversableQueue<T>[][][]) new Object[this.length][this.breadth][this.height];
+		this.cube = new TraversableQueue[this.length][this.breadth][this.height];
 	}
 	
 	/**

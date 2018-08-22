@@ -1,7 +1,7 @@
 package comp3506.assn1.adts;
 
-class LinkedNode<T> extends LinkedList<T> {
-	protected LinkedNode<T> prevNode = null;
+class LinkedNode<T> {
+	protected LinkedNode<T> nextNode = null;
 	private T element = null;
 	
 	LinkedNode(T element) {
@@ -13,10 +13,10 @@ class LinkedNode<T> extends LinkedList<T> {
 	}
 	
 	protected LinkedNode<T> getNextNode() {
-		return this.prevNode;
+		return this.nextNode;
 	}
 	
 	protected void addNext(LinkedNode<T> node) {
-		this.prevNode = node;
+		this.nextNode = node;
 	}
 }
