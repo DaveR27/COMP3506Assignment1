@@ -1,5 +1,6 @@
 package comp3506.assn1.adts;
 
+import java.util.Iterator;
 
 /**
  * A three-dimensional data structure that holds items in a positional relationship to each other.
@@ -12,7 +13,10 @@ package comp3506.assn1.adts;
  * @param <T> The type of element held in the data structure.
  */
 public class BoundedCube<T> implements Cube<T> {
-	public TraversableQueue<T> cube[][][];
+	private TraversableQueue<T> cube[][][];
+	private int length;
+	private int breadth;
+	private int height;
 	
 	/**
 	 * 
@@ -26,7 +30,10 @@ public class BoundedCube<T> implements Cube<T> {
 		if (!this.checkPositiveValues(length, breadth, height)) {
 			throw new IllegalArgumentException();
 		}
-		cube =  (TraversableQueue<T>[][][]) new Object[length][breadth][height];
+		this.length = length;
+		this.height = height;
+		this.breadth = breadth;
+		this.cube =  (TraversableQueue<T>[][][]) new Object[this.length][this.breadth][this.height];
 	}
 	
 	/**
@@ -47,46 +54,65 @@ public class BoundedCube<T> implements Cube<T> {
 
 	@Override
 	public void add(int x, int y, int z, T element) throws IndexOutOfBoundsException {
-		if (cube[x][y][z] == null) {
-			cube[x][y][z] = new TraversableQueue<T>();
+		if (this.cube[x][y][z] == null) {
+			this.cube[x][y][z] = new TraversableQueue<T>();
 		}
-		cube[x][y][z].enqueue(element);;
+		this.cube[x][y][z].enqueue(element);;
 		
 	}
 
 	@Override
 	public T get(int x, int y, int z) throws IndexOutOfBoundsException {
-		return cube[x][y][z].dequeue();
+		Iterator<T> cubeIterator =  this.cube[x][y][z].iterator();
+		T oldestItem = cubeIterator.next();
+		cubeIterator = null;
+		return oldestItem;
 	}
 
 	@Override
 	public IterableQueue<T> getAll(int x, int y, int z) throws IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
-		return null;
+		return this.cube[x][y][z];
 	}
 
 	@Override
 	public boolean isMultipleElementsAt(int x, int y, int z) throws IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
-		return false;
+		if (this.cube[x][y][z].size() > 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	public boolean remove(int x, int y, int z, T element) throws IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
+		if (this.cube[x][y][z] != null) {
+			Iterator<T> cubeIterator = cube[x][y][z].iterator();
+			TraversableQueue<T> tempQueue = new TraversableQueue<T>();
+			T tempElement;
+			while (cubeIterator.hasNext()) {
+				tempElement = cubeIterator.next();
+				if (tempElement.equals(element)) {
+					continue;
+				}
+				tempQueue.enqueue(tempElement);
+			}
+			this.cube[x][y][z] = tempQueue;
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public void removeAll(int x, int y, int z) throws IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
+		this.cube[x][y][x] = null;
 		
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		this.cube = null;
+		this.cube = (TraversableQueue[][][]) new Object[this.length][this.breadth][this.height];	
 	}
 	
 }

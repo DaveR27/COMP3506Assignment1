@@ -34,6 +34,7 @@ class LinkedList<T> {
 			if (this.size == 1) {
 				this.head = null;
 				this.tail = null;
+				this.size = 0;
 			} else {
 				this.head = this.head.getNextNode();
 				this.size--;
@@ -48,5 +49,6 @@ class LinkedList<T> {
 	protected int getSize() {
 		return this.size;
 	}
+
 	
 }
