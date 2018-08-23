@@ -124,6 +124,7 @@ public class OneSky {
 		if (args.length > 0 && args[0].equalsIgnoreCase("auto")) {		// Start automated simulation mode.
 			OneSky simulation = new OneSky(Integer.parseInt(args[1]));
 			simulation.automated();
+			System.out.println("Done!!!");
 		} else if (args.length > 0) {									// Output program usage pattern.
 			System.out.println("Usage: java OneSky auto numberOfIterations or java OneSky");
 		} else {														// Start interactive simulation mode.

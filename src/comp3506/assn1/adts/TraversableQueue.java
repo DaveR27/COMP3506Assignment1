@@ -17,7 +17,11 @@ public class TraversableQueue<T> implements IterableQueue<T> {
 
 	@Override
 	public T dequeue() throws IndexOutOfBoundsException {
-		return this.queue.removeHead();
+		if (this.queue.getSize() == 0) {
+			throw new IndexOutOfBoundsException();
+		}
+		T returnedItem = this.queue.removeHead();
+		return returnedItem;
 	}
 	
 	@Override
@@ -50,15 +54,13 @@ public class TraversableQueue<T> implements IterableQueue<T> {
 		}
 		
 		public T next() throws NoSuchElementException{
-			if (queue.getSize() == 0) {
-				throw new NoSuchElementException();
-			}
 			if (this.hasNext()) {
 				T returnElement = this.currentNode.getNextNode().getNodeElement();
 				this.currentNode = this.currentNode.getNextNode();
 				return returnElement;
-			} 
-			return null;
+			} else {
+				throw new NoSuchElementException();
+			}
 		}
 		
 	}

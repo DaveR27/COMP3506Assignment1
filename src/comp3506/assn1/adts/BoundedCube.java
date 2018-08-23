@@ -58,7 +58,6 @@ public class BoundedCube<T> implements Cube<T> {
 			this.cube[x][y][z] = new TraversableQueue<T>();
 		}
 		this.cube[x][y][z].enqueue(element);;
-		
 	}
 
 	@Override
@@ -105,7 +104,6 @@ public class BoundedCube<T> implements Cube<T> {
 	@Override
 	public void removeAll(int x, int y, int z) throws IndexOutOfBoundsException {
 		this.cube[x][y][x] = null;
-		
 	}
 
 	@Override

@@ -27,9 +27,6 @@ class LinkedList<T> {
 	
 	protected T removeHead() throws IndexOutOfBoundsException {
 		T removedObject = this.head.getNodeElement();
-		if (this.size == 0) {
-			throw new IndexOutOfBoundsException();
-		}
 		if (this.size == 1) {
 			this.head = null;
 			this.tail = null;
