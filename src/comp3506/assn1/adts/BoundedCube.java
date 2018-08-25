@@ -64,7 +64,6 @@ public class BoundedCube<T> implements Cube<T> {
 	public T get(int x, int y, int z) throws IndexOutOfBoundsException {
 		Iterator<T> cubeIterator =  this.cube[x][y][z].iterator();
 		T oldestItem = cubeIterator.next();
-		cubeIterator = null;
 		return oldestItem;
 	}
 
@@ -75,10 +74,13 @@ public class BoundedCube<T> implements Cube<T> {
 
 	@Override
 	public boolean isMultipleElementsAt(int x, int y, int z) throws IndexOutOfBoundsException {
-		if (this.cube[x][y][z].size() > 1) {
-			return true;
-		} else {
+		if (this.cube[x][y][z] == null) {
 			return false;
+		} else {
+			if (this.cube[x][y][z].size() <= 0) {
+				return false;
+			}
+			return true;
 		}
 	}
 
