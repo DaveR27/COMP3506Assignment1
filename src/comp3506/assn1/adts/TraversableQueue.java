@@ -4,9 +4,27 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
+ * TraversableQueue<T> is a normal queue but has the ability to instantiate an
+ * iterator so that the content of the queue other then the top of the queue can
+ * be found. In the back end of this structure a Singly LinkedList operates, so the
+ * head of the queue will act as the first element in the linked structure and will
+ * be the one to be removed on a dequeue, and on enqueue the element will be added
+ * to the tail of the LinkedList.
  * 
+ * Memory Usage (Space Complexity):
+ * For every instance of TraversableQueue a new LinkedList is made so in turn 
+ * TraversableQueue will inherit the space complexity of the LinkedList class. Since
+ * a LinkedList uses up to 4 variables at any time to be able to function the sum
+ * of the sizes of those variables will be the space complexity of a TraversableQueue
+ * In the worst cause of a method running from TraversableQueue, 4 variables are
+ * being used so there would be a space complexity of 6, 3 instances variables and a
+ * temporary variable from LinkedList and then 2 instance variables from a LinkedNode.
+ * As the worst case of the structure is a constant of 6, it can be said that 
+ * the memory usage is constant since there is no variation in the worst case 
+ * and how much is stored.
  * 
- * Memory Usage:
+ * O(1)
+ * 
  * 
  * @author David Riddell
  *
@@ -166,3 +184,25 @@ public class TraversableQueue<T> implements IterableQueue<T> {
 	}
 
 }
+/*
+ * The design of TraversableQueue would work well in a air traffic management system
+ * due to the structures space complexity and run-time efficiency. For space
+ * complexity it would be highly usable since the growth of memory usage is constant
+ * and cannot be any better. For run-time efficiency the same thing applies since
+ * every method is running in a form of constant time it is a good structure for
+ * holding information. There is some slight improvements that could be made to 
+ * some of the methods, for example path 3 of dequeue has a constant time of 17.
+ * Even though the method has a run-time of O(1) if the method was to simplify some
+ * of its logic it could possible have less primitive operations be called and slightly
+ * reduce the run-time of the method. Just looking at the big-o value for the methods
+ * though shows the this structure would fit straight into a air traffic control
+ * simulation well since being able to access key methods within the queue in 
+ * constant time will give an overall performance boost to the run-time of the
+ * program.
+ * 
+ * References:
+ * 		Goodrich, M., Tamassia, R., & Goldwasser, M. (2014). Data structures and 
+ * 		algorithms in Java (6th ed., pp. 156-164). Wiley.
+ * 		
+ * 		Thomas, R. (2018). Analysis Tools. Lecture, University of Queensland.
+ */ 
