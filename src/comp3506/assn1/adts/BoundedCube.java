@@ -14,14 +14,16 @@ import java.util.Iterator;
  * 3 + 3n in memory and since only the upper bound of the structure needs to be analyzed only the
  * n needs to be taken into consideration. As the constant values are being ignored then
  * f(n) == n where n is the input size and f(n) is the amount of primitive function calls on the n
- * objects.
+ * objects. As the memory growth is linear the Big-o notation for the space complexity is:
+ * 
+ * O(n)
  * 
  * @author David Riddell
  *
  * @param <T> The type of element held in the data structure.
  */
 public class BoundedCube<T> implements Cube<T> {
-	private IterableQueue<T> cube[][][];
+	private IterableQueue<T> cube[][][]; //models the aus airspace
 	private int length;
 	private int breadth;
 	private int height;
@@ -67,7 +69,7 @@ public class BoundedCube<T> implements Cube<T> {
 	 * Checks that positive numbers are entered into the constructor.
 	 * 
 	 * Run-Time Efficiency:
-	 * Every operation is a constant operation so then this method works
+	 * Every operation is a constant operation so this method works
 	 * in constant time so:
 	 * 
 	 * O(1)
@@ -280,3 +282,33 @@ public class BoundedCube<T> implements Cube<T> {
 	}
 	
 }
+
+/*
+ * The BoundedCube class has some pros to it, but if it was to be designed again there could be some improvements,
+ * to help with the run-time and space performance. The pros of this structure are from its O(1) run time on all of
+ * its add and remove methods, allowing fast changes within the information. In terms of the OneSky and the use of this
+ * advantage, this would make for easy use for tracking things like jets since they will quickly move through different 
+ * parts of the airspace, so the ability to move the data quickly is advantageous. Not only does using a 3d array allow for
+ * fast information accessing, but it also allows for easy modeling by just being able to define the size of each array
+ * and then you have a perfect box for what ever airspace you need to model. This point can also have some cons though because if
+ * the array is big enough it slows down the structures set-up time because of how much memory has to be used when making
+ * a 3d array. As seen in the Javadoc comment at the start of the class, there is linear memory growth whenever the cube
+ * instance variable is made which can make some systems with not a lot of memory struggle to run this structure with lots
+ * of information, but it will still work if not a lot of data is used. If BoundedCube was to be designed again, it would be recommended
+ * to replace the 3d array with another structure to simulate the cube, for example a binary tree. The advantages of using 
+ * a binary tree would mean you don't need to hold every point of the Australian airspace  at all times, you would only 
+ * need to store locations that are currently active with aircraft. Doing this would changed the memory usage to O(log(n)) 
+ * from linear and give computers with less memory the chance to process lots of data. The only down side to this method would 
+ * be losing constant time access to parts of the airspace because you would have to traverse the whole tree to find what parts 
+ * of airspace is the structure currently using and then check to see if the correct element is in that location. But if a binary
+ * tree was used, binary search algorithms could be used to traverse the tree so access times to elements in airspace would only
+ * be going from O(1) to O(log(n)). If the BoundedCube was only tracking commercial planes though, having the decreased access
+ * time may not be to noticeable and the increase in performance when it comes to memory will probably far out way the cons of
+ * slower access speeds.
+ * 
+ * References:
+ * 		Goodrich, M., Tamassia, R., & Goldwasser, M. (2014). Data structures and 
+ * 		algorithms in Java (6th ed., pp. 156-164). Wiley.
+ * 		
+ * 		Thomas, R. (2018). Analysis Tools. Lecture, University of Queensland.
+ */ 
