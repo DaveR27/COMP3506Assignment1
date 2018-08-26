@@ -164,20 +164,34 @@ public class TraversableQueue<T> implements IterableQueue<T> {
 		}
 		
 		public boolean hasNext() {
-			if (this.currentNode.getNextNode() != null) {
-				return true;
+			if (this.currentNode.getNextNode() != null) { // 3
+				return true; // 1
 			} else {
-				return false; 
+				return false; // 1
 			}
 		}
 		
+		/**
+		 * Checks to see if there is a next element in the iterator, will return that
+		 * element and then move the pointer so that it is the new current element in
+		 * the iterator.
+		 * 
+		 * Run-Time Efficiency:
+		 * Since all the values are constant f(n) == c*g(n) so the upper bound of this
+		 * method is:
+		 * 
+		 * O(1)
+		 * 
+		 * @return returnElement is the next element stored in the next node along in the
+		 * 		LinkedList
+		 */
 		public T next() throws NoSuchElementException{
-			if (this.hasNext()) {
-				T returnElement = this.currentNode.getNextNode().getNodeElement();
-				this.currentNode = this.currentNode.getNextNode();
-				return returnElement;
+			if (this.hasNext()) { // 4
+				T returnElement = this.currentNode.getNextNode().getNodeElement(); // 5
+				this.currentNode = this.currentNode.getNextNode(); // 3
+				return returnElement; // 1
 			} else {
-				throw new NoSuchElementException();
+				throw new NoSuchElementException(); // 1
 			}
 		}
 		
