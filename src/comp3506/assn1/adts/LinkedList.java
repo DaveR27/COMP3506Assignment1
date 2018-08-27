@@ -30,7 +30,6 @@ class LinkedList<T> {
 	 */
 	protected void addTail(T element) throws IllegalStateException{
 		LinkedNode<T> node = new LinkedNode<T>(element); // 1
-		
 		if (this.size == 0) { // 1
 			this.head = node; // 1
 			this.tail = node; // 1
@@ -55,6 +54,7 @@ class LinkedList<T> {
 	protected T removeHead() {
 		T removedObject = null; // 1
 		if (this.size == 1) { // 1
+			removedObject = this.head.getNodeElement(); // 2 
 			this.head = null; // 1
 			this.tail = null; // 1
 			this.size = 0; // 1

@@ -34,6 +34,19 @@ import java.util.NoSuchElementException;
 public class TraversableQueue<T> implements IterableQueue<T> {
 	protected LinkedList<T> queue;
 	
+	/**
+	 * Creates everything needed for a TraversableQueue to work.
+	 * 
+	 * Run-Time Efficiency:
+	 * Since all this method is doing is creating a linked list and assigning it to
+	 * a variable within TraversableQueue the primitive operation count will only go
+	 * up by 2. Also since making a linked list only assigns values to 3 instance variables
+	 * there is only another 3 constant operations that need to be added to the 2 of this
+	 * method. Since only constant operations occur, f(n) == c*g(n) where c is the constant
+	 * value. In turn the big-o value for the runtime of this method is:
+	 * 
+	 * O(1)
+	 */
 	public TraversableQueue() {
 		this.queue = new LinkedList<T>();
 	}
@@ -45,12 +58,10 @@ public class TraversableQueue<T> implements IterableQueue<T> {
 	 * is added to is always the tail of the structure.
 	 * 
 	 * Run-Time Efficiency:
-	 * In the least calls case of this method executing 8 operations are called 
-	 * and in the most calls case 8 operations are also called. So Let x be the 
-	 * least calls case and y be the most, Since
-	 * x == y and 8 is a constant integer, T(n) == c where T(n) is the worst run time
-	 * and c is a constant.
-	 * Therefore This method has a run-time efficiency of: 
+	 * In the least calls case of this method, 8 operations are called 
+	 * and in the most calls case 8 operations are also called. So only
+	 * constant primitive operations occur so the worst case would be
+	 * a linear runtime. Therefore the big-o value for this method is:
 	 * 
 	 * O(1)
 	 * 
@@ -156,6 +167,10 @@ public class TraversableQueue<T> implements IterableQueue<T> {
 	private class LinkedListIterator implements Iterator<T> {
 		private LinkedNode<T> currentNode;
 		
+		/**
+		 * Creates an iterator for the queue so that all the elements
+		 * in this queue can be iterated over.
+		 */
 		private LinkedListIterator() {
 			LinkedNode<T> masterNode = new LinkedNode<T>(null); // 2
 			masterNode.addNext(queue.head); // 1
@@ -163,6 +178,10 @@ public class TraversableQueue<T> implements IterableQueue<T> {
 			
 		}
 		
+		/**
+		 * Checks to see if there is another node that the iterator
+		 * can go to
+		 */
 		public boolean hasNext() {
 			if (this.currentNode.getNextNode() != null) { // 3
 				return true; // 1
@@ -203,16 +222,15 @@ public class TraversableQueue<T> implements IterableQueue<T> {
  * due to the structures space complexity and run-time efficiency. For space
  * complexity it would be highly usable since the growth of memory usage is constant
  * and cannot be any better. For run-time efficiency the same thing applies since
- * every method is running in a form of constant time it is a good structure for
- * holding information. There is some slight improvements that could be made to 
- * some of the methods, for example path 3 of dequeue has a constant time of 17.
- * Even though the method has a run-time of O(1) if the method was to simplify some
- * of its logic it could possible have less primitive operations be called and slightly
- * reduce the run-time of the method. Just looking at the big-o value for the methods
- * though shows the this structure would fit straight into a air traffic control
- * simulation well since being able to access key methods within the queue in 
- * constant time will give an overall performance boost to the run-time of the
- * program.
+ * every method is running in a form of constant time. There is some slight 
+ * improvements that could be made to some of the methods, for example path 3 
+ * of dequeue has a constant time of 17. Even though the method has a run-time of O(1) 
+ * if the method was to simplify some of its logic it could possible have less primitive 
+ * operations be called and slightly reduce the run-time of the method. Just looking 
+ * at the big-o value for the methods though shows the this structure would fit straight 
+ * into a air traffic control simulation well since being able to access key methods 
+ * within the queue in constant time will give an overall performance boost to the 
+ * run-time of the program.
  * 
  * References:
  * 		Goodrich, M., Tamassia, R., & Goldwasser, M. (2014). Data structures and 

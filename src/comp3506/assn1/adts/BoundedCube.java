@@ -89,7 +89,7 @@ public class BoundedCube<T> implements Cube<T> {
 	
 	/**
 	 * Adds a new element to that index of the cube. If nothing is being held in that
-	 * position then a new TraversableQueue is added to the so that element can be added
+	 * position then a new TraversableQueue is added to the index so that element can be added
 	 * to it. If something is already at this specified position then the element is then
 	 * just enqueued.
 	 * 
@@ -125,14 +125,14 @@ public class BoundedCube<T> implements Cube<T> {
 	}
 	
 	/**
-	 * Creates an iterator object to get what is on the top of the TraverableQueue stored at 
-	 * the desired index and is then returned. 
+	 * Creates an iterator object to get what is at the head of the TraverableQueue then
+	 * returns that object.
 	 * 
 	 * Run-Time Efficiency:
-	 * In this method there are 2 assignment operations, 2 function calls and a return. From
+	 * In this method there are 3 assignment operations, 2 function calls and a return. From
 	 * the documentation in TraversableQueue it can be seen that iterator() and next() work
 	 * in constant time. Since there are only constant primitive operations added to those 
-	 * methods within this get method, it can be said that,
+	 * methods within this get method it can be said that,
 	 * f(n) == c*g(n) where c is a constant value so this method has a big-o of:
 	 * 
 	 * O(1)
@@ -145,9 +145,12 @@ public class BoundedCube<T> implements Cube<T> {
 	 */
 	@Override
 	public T get(int x, int y, int z) throws IndexOutOfBoundsException {
-		Iterator<T> cubeIterator =  this.cube[x][y][z].iterator();
-		T oldestItem = cubeIterator.next();
-		return oldestItem;
+		T oldestItem = null; // 1
+		if (this.cube[x][y][z] != null) { // 2
+			Iterator<T> cubeIterator =  this.cube[x][y][z].iterator(); //3 creates iterator
+			oldestItem = cubeIterator.next(); // 2
+		}
+		return oldestItem; // 1
 	}
 	
 	/**
@@ -197,10 +200,10 @@ public class BoundedCube<T> implements Cube<T> {
 		if (this.cube[x][y][z] == null) { // 2  checks to see if queue is here
 			return false; // 1
 		} else {
-			if (this.cube[x][y][z].size() <= 0) { // 2 checks to see if more then one thing is stored.
-				return false; // 1
+			if (this.cube[x][y][z].size() > 1) { // 2 checks to see if more then one thing is stored.
+				return true; // 1
 			}
-			return true; // 1
+			return false; // 1
 		}
 	}
 	
@@ -267,9 +270,9 @@ public class BoundedCube<T> implements Cube<T> {
 	 * Clears the whole cube so it is holding nothing.
 	 * 
 	 * Run-Time Efficiency:
-	 * For this method the bottle neck neck occurs in the last line. Linear growth
+	 * For this method the bottle neck occurs in the last line. Linear growth
 	 * occurs due to an array being instantiated of a size n. Since this is a 3d array
-	 * this happens 3 times. Since this is the limiting part of the method, f(n) == n
+	 * this happens 3 times. As this is the limiting part of the method, f(n) == n
 	 * which signifies that linear growth is occurring and this gives an upper bound of:
 	 * 
 	 * O(n)
